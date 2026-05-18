@@ -13,15 +13,17 @@ queue_rules:
 merge_queue:
   max_parallel_checks: 1
 
-pull_request_rules:
-  - name: queue PRs with mergify-approve label
-    conditions:
-      - or:
-          - label = trivial
-          - label = mergify-approve
-      - label != do-not-merge
-      - -draft
+merge_protections_settings:
+  reporting_method: check-runs
+  auto_merge_conditions:
+    - or:
+        - label = trivial
+        - label = mergify-approve
+    - label != do-not-merge
+
+merge_protections:
+  - name: required CI
+    if:
       - -closed
-    actions:
-      queue:
-        name: default
+    success_conditions:
+      - check-success=ci
