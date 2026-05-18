@@ -6,9 +6,9 @@ queue_rules:
       - -conflict
     merge_conditions:
       - check-success=ci
-    merge_method: squash
+    merge_method: fast-forward
     batch_size: 5
-    batch_max_wait_time: 30 seconds
+    batch_max_wait_time: 15 minutes
 
 merge_queue:
   max_parallel_checks: 1
