@@ -8,8 +8,7 @@ queue_rules:
       - check-success=ci
     merge_method: squash
     batch_size: 5
-    batch_max_wait_time: 15 minutes
-    checks_timeout: 60 minutes
+    batch_max_wait_time: 30 seconds
 
 merge_queue:
   max_parallel_checks: 1
