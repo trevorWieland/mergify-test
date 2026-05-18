@@ -1,0 +1,24 @@
+queue_rules:
+  - name: default
+    queue_conditions:
+      - check-success=ci
+      - -draft
+      - -conflict
+    merge_conditions:
+      - check-success=ci
+    merge_method: squash
+
+merge_queue:
+  max_parallel_checks: 1
+
+merge_protections_settings:
+  reporting_method: check-runs
+  auto_merge_conditions:
+    - label = mergify-approve
+
+merge_protections:
+  - name: required CI
+    if:
+      - -closed
+    success_conditions:
+      - check-success=ci
