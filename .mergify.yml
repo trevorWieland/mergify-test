@@ -6,24 +6,22 @@ queue_rules:
       - -conflict
     merge_conditions:
       - check-success=ci
-    merge_method: fast-forward
+    merge_method: squash
     batch_size: 5
     batch_max_wait_time: 15 minutes
 
 merge_queue:
   max_parallel_checks: 1
 
-merge_protections_settings:
-  reporting_method: check-runs
-  auto_merge_conditions:
-    - or:
-        - label = trivial
-        - label = mergify-approve
-    - label != do-not-merge
-
-merge_protections:
-  - name: required CI
-    if:
+pull_request_rules:
+  - name: queue PRs with mergify-approve label
+    conditions:
+      - or:
+          - label = trivial
+          - label = mergify-approve
+      - label != do-not-merge
+      - -draft
       - -closed
-    success_conditions:
-      - check-success=ci
+    actions:
+      queue:
+        name: default
